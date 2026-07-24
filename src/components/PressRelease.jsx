@@ -10,16 +10,16 @@ export default function PressRelease() {
         </h2>
 
         <div className="flex flex-wrap gap-x-8 gap-y-3 mt-10 font-type text-xs uppercase tracking-widest">
-          <a href="mailto:roselia@email.com" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
+          <a href="mailto:roseliapuspita@gmail.com" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
             Email
           </a>
-          <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
+          <a href="https://linkedin.com/in/roseliapuspita" target="_blank" rel="noopener noreferrer" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
             LinkedIn
           </a>
-          <a href="https://instagram.com/username" target="_blank" rel="noopener noreferrer" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
+          <a href="https://www.instagram.com/roseliaa._/" target="_blank" rel="noopener noreferrer" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
             Instagram
           </a>
-          <a href="https://wa.me/62xxxxxxxxxx" target="_blank" rel="noopener noreferrer" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
+          <a href="https://wa.me/6281522671668" target="_blank" rel="noopener noreferrer" className="border-b border-newsprint/40 hover:text-highlighter hover:border-highlighter transition-colors">
             WhatsApp
           </a>
         </div>
