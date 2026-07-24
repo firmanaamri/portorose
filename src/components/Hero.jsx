@@ -1,3 +1,5 @@
+import rosPhoto from "../assets/ros.JPG";
+
 export default function Hero() {
   return (
     <section className="border-b border-ink/20">
@@ -46,7 +48,7 @@ export default function Hero() {
                   {/* placeholder illustration — replace src with real photo */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-pencil/40"></div>
                   <img
-                    src="src/assets/ros.JPG"
+                    src={rosPhoto}
                     alt="Roselia Puspita Asri"
                     className="w-full h-full object-cover"
                   />
