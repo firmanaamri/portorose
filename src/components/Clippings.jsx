@@ -1,3 +1,5 @@
+import { useInView } from "../hooks/useInView";
+
 const items = [
   {
     kicker: "Kampanye PR",
@@ -33,22 +35,39 @@ const items = [
 ];
 
 export default function Clippings() {
+  const [headerRef, headerInView] = useInView();
+  const [gridRef, gridInView] = useInView({ threshold: 0.08 });
+
   return (
     <section id="karya" className="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <span className="font-type text-[11px] uppercase tracking-widest text-press-red">
-        Rubrik
-      </span>
-      <h2 className="font-display font-extrabold text-3xl md:text-4xl mt-2">
-        Liputan &amp; Kampanye
-      </h2>
+      {/* Section header — slides up on scroll */}
+      <div
+        ref={headerRef}
+        className={`transition-all duration-700 ease-out ${
+          headerInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <span className="font-type text-[11px] uppercase tracking-widest text-press-red">
+          Rubrik
+        </span>
+        <h2 className="font-display font-extrabold text-3xl md:text-4xl mt-2">
+          Liputan &amp; Kampanye
+        </h2>
+      </div>
 
-      <div className="grid md:grid-cols-2 gap-6 mt-10">
+      {/* Cards grid — staggered fade-up */}
+      <div ref={gridRef} className="grid md:grid-cols-2 gap-6 mt-10">
         {items.map((item, i) => (
           <article
             key={item.title}
             className={`bg-white/50 border border-ink/15 p-6 shadow-sm hover:rotate-0 hover:shadow-md transition-all duration-300 ${
               i % 2 === 1 ? "-rotate-[0.6deg]" : "rotate-[0.4deg]"
+            } ${
+              gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
+            style={{
+              transition: `opacity 0.6s ease-out ${i * 110}ms, transform 0.6s ease-out ${i * 110}ms, box-shadow 0.3s, rotate 0.3s`,
+            }}
           >
             <span className="font-type text-[10px] uppercase tracking-widest bg-highlighter/70 px-1.5 py-0.5">
               {item.kicker}
@@ -67,7 +86,7 @@ export default function Clippings() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-type text-[11px] uppercase tracking-widest text-press-red mt-4 inline-block border-b border-press-red"
+                className="font-type text-[11px] uppercase tracking-widest text-press-red mt-4 inline-block border-b border-press-red hover:tracking-[0.15em] transition-all duration-200"
               >
                 {item.linkLabel}
               </a>
@@ -77,4 +96,4 @@ export default function Clippings() {
       </div>
     </section>
   );
-}
+}

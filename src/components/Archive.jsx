@@ -1,3 +1,5 @@
+import { useInView } from "../hooks/useInView";
+
 const articles = [
   {
     outlet: "Kumparan.com",
@@ -26,18 +28,36 @@ const articles = [
 ];
 
 export default function Archive() {
+  const [headerRef, headerInView] = useInView();
+  const [listRef, listInView] = useInView({ threshold: 0.08 });
+
   return (
     <section id="arsip" className="max-w-6xl mx-auto px-6 py-16 md:py-20">
-      <span className="font-type text-[11px] uppercase tracking-widest text-press-red">
-        Indeks
-      </span>
-      <h2 className="font-display font-extrabold text-3xl md:text-4xl mt-2">
-        Arsip Tulisan
-      </h2>
+      {/* Section header */}
+      <div
+        ref={headerRef}
+        className={`transition-all duration-700 ease-out ${
+          headerInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <span className="font-type text-[11px] uppercase tracking-widest text-press-red">
+          Indeks
+        </span>
+        <h2 className="font-display font-extrabold text-3xl md:text-4xl mt-2">
+          Arsip Tulisan
+        </h2>
+      </div>
 
-      <ul className="mt-10 divide-y divide-ink/15 border-t border-b border-ink/15">
-        {articles.map((a) => (
-          <li key={a.link}>
+      {/* List items — slide in from left, staggered */}
+      <ul ref={listRef} className="mt-10 divide-y divide-ink/15 border-t border-b border-ink/15">
+        {articles.map((a, i) => (
+          <li
+            key={a.link}
+            className={`transition-all ease-out ${
+              listInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-5"
+            }`}
+            style={{ transitionDuration: "0.55s", transitionDelay: `${i * 90}ms` }}
+          >
             <a
               href={a.link}
               target="_blank"
@@ -63,4 +83,4 @@ export default function Archive() {
       </p>
     </section>
   );
-}
+}

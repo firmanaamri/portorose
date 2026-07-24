@@ -5,7 +5,7 @@ const TYPE_SPEED_MS = 55;
 const HOLD_AFTER_TYPE_MS = 500;
 const EXIT_DURATION_MS = 650;
 
-export default function Loader() {
+export default function Loader({ onDone }) {
   const [typed, setTyped] = useState("");
   const [exiting, setExiting] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -13,8 +13,8 @@ export default function Loader() {
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
-      // Jangan paksa user yang minta motion minim untuk menunggu animasi.
       setVisible(false);
+      onDone?.();
       return;
     }
 
@@ -33,7 +33,10 @@ export default function Loader() {
 
   useEffect(() => {
     if (!exiting) return;
-    const t = setTimeout(() => setVisible(false), EXIT_DURATION_MS);
+    const t = setTimeout(() => {
+      setVisible(false);
+      onDone?.();
+    }, EXIT_DURATION_MS);
     return () => clearTimeout(t);
   }, [exiting]);
 

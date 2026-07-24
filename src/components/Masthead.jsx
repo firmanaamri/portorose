@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
   { href: "#karya", label: "Karya" },
@@ -10,8 +10,36 @@ const NAV_LINKS = [
 
 export default function Masthead() {
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState("");
 
   const close = () => setOpen(false);
+
+  // Detect which section is currently in view
+  useEffect(() => {
+    const sectionIds = NAV_LINKS.map(({ href }) => href.replace("#", ""));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        // Trigger when section crosses ~30% from the top of viewport
+        rootMargin: "-20% 0px -70% 0px",
+        threshold: 0,
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -22,15 +50,23 @@ export default function Masthead() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex gap-6">
-            {NAV_LINKS.map(({ href, label }) => (
-              <a
-                key={href}
-                href={href}
-                className="font-type text-[11px] uppercase tracking-widest hover:text-press-red transition-colors"
-              >
-                {label}
-              </a>
-            ))}
+            {NAV_LINKS.map(({ href, label }) => {
+              const id = href.replace("#", "");
+              const isActive = activeId === id;
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  className={`relative font-type text-[11px] uppercase tracking-widest transition-colors pb-0.5 ${
+                    isActive
+                      ? "text-press-red border-b-2 border-press-red"
+                      : "hover:text-press-red"
+                  }`}
+                >
+                  {label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right side: status badge + hamburger */}
@@ -78,19 +114,23 @@ export default function Masthead() {
         }`}
       >
         <nav className="flex flex-col gap-6">
-          {NAV_LINKS.map(({ href, label }, i) => (
-            <a
-              key={href}
-              href={href}
-              onClick={close}
-              className={`font-display font-extrabold text-3xl uppercase tracking-tight hover:text-press-red transition-all duration-300 ${
-                open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-              }`}
-              style={{ transitionDelay: open ? `${i * 60}ms` : "0ms" }}
-            >
-              {label}
-            </a>
-          ))}
+          {NAV_LINKS.map(({ href, label }, i) => {
+            const id = href.replace("#", "");
+            const isActive = activeId === id;
+            return (
+              <a
+                key={href}
+                href={href}
+                onClick={close}
+                className={`font-display font-extrabold text-3xl uppercase tracking-tight transition-all duration-300 ${
+                  isActive ? "text-press-red" : "hover:text-press-red"
+                } ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}
+                style={{ transitionDelay: open ? `${i * 60}ms` : "0ms" }}
+              >
+                {label}
+              </a>
+            );
+          })}
         </nav>
 
         <div className="mt-12 border-t border-ink/15 pt-6 flex items-center gap-2 font-type text-[11px] uppercase tracking-widest text-pencil">
