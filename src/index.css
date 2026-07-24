@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700;800&family=Work+Sans:wght@400;500;600&family=Special+Elite&display=swap');
+@import "tailwindcss";
+
+/* ===== Design tokens (Tailwind v4 CSS-first config) =====
+   Ini otomatis membuat utility class:
+   bg-newsprint / text-ink / bg-press-red / bg-highlighter / text-pencil
+   font-display / font-body / font-type
+*/
+@theme {
+  --color-newsprint: #EFECE2;
+  --color-ink: #1B1B22;
+  --color-press-red: #B3261E;
+  --color-highlighter: #F4C93B;
+  --color-pencil: #6B6A63;
+
+  --font-display: "Zilla Slab", ui-serif, serif;
+  --font-body: "Work Sans", ui-sans-serif, sans-serif;
+  --font-type: "Special Elite", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-newsprint);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-highlighter);
+  color: var(--color-ink);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-press-red);
+  outline-offset: 3px;
+}
+
+@keyframes af-snap {
+  0% { transform: scale(1.5); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
