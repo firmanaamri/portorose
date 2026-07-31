@@ -99,9 +99,11 @@ export default function Hero({ ready }) {
         ].map(([label, value], i) => (
           <div
             key={label}
-            className={`px-5 py-3.5 font-type text-[11px] uppercase tracking-wide border-ink/15 ${
-              i < 3 ? "md:border-r" : ""
-            } ${i % 2 === 0 ? "border-r md:border-r-0" : ""} border-b md:border-b-0`}
+            className={`px-5 py-3.5 font-type text-[11px] uppercase tracking-wide border-ink/15
+              ${i < 3 ? "md:border-r" : ""}
+              ${i % 2 === 0 ? "border-r" : ""}
+              ${i < 2 ? "border-b md:border-b-0" : ""}
+            `}
           >
             <span className="block text-pencil text-[10px] mb-1">{label}</span>
             {value}

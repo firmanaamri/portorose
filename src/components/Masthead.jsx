@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
   { href: "#karya", label: "Karya" },
@@ -6,6 +7,11 @@ const NAV_LINKS = [
   { href: "#arsip", label: "Arsip" },
   { href: "#tentang", label: "Tentang Saya" },
   { href: "#kontak", label: "Kontak" },
+];
+
+// Separate page-level route links
+const ROUTE_LINKS = [
+  { to: "/berita", label: "Berita" },
 ];
 
 export default function Masthead() {
@@ -46,10 +52,10 @@ export default function Masthead() {
       <header className="sticky top-0 z-50 bg-newsprint/95 backdrop-blur-sm border-b border-ink/20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="font-display font-extrabold text-lg tracking-wide hover:text-press-red transition-colors">rose.</a>
+          <Link to="/" className="font-display font-extrabold text-lg tracking-wide hover:text-press-red transition-colors">rose.</Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex gap-6 items-center">
             {NAV_LINKS.map(({ href, label }) => {
               const id = href.replace("#", "");
               const isActive = activeId === id;
@@ -67,6 +73,17 @@ export default function Masthead() {
                 </a>
               );
             })}
+            {/* Divider */}
+            <span className="w-px h-4 bg-ink/20" />
+            {ROUTE_LINKS.map(({ to, label }) => (
+              <Link
+                key={to}
+                to={to}
+                className="relative font-type text-[11px] uppercase tracking-widest transition-colors pb-0.5 hover:text-press-red"
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
 
           {/* Right side: status badge + hamburger */}
@@ -131,6 +148,21 @@ export default function Masthead() {
               </a>
             );
           })}
+          {/* Divider */}
+          <div className="w-12 h-px bg-ink/20 my-1" />
+          {ROUTE_LINKS.map(({ to, label }, i) => (
+            <Link
+              key={to}
+              to={to}
+              onClick={close}
+              className={`font-display font-extrabold text-3xl uppercase tracking-tight transition-all duration-300 hover:text-press-red ${
+                open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+              }`}
+              style={{ transitionDelay: open ? `${(NAV_LINKS.length + 1 + i) * 60}ms` : "0ms" }}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="mt-12 border-t border-ink/15 pt-6 flex items-center gap-2 font-type text-[11px] uppercase tracking-widest text-pencil">
