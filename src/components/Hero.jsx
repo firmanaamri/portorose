@@ -42,7 +42,7 @@ export default function Hero({ ready }) {
             <div className={`flex flex-wrap gap-3 mt-8 transition-all duration-700 ease-out [transition-delay:300ms] ${ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <Button
                 variant="solid"
-                href="/Roselia_Resume.pdf"
+                href="/RoseliaPuspitaAsri_Resume.pdf"
                 external
               >
                 Lihat CV
