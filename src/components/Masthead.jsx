@@ -52,7 +52,13 @@ export default function Masthead() {
       <header className="sticky top-0 z-50 bg-newsprint/95 backdrop-blur-sm border-b border-ink/20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="font-display font-extrabold text-lg tracking-wide hover:text-press-red transition-colors">rose.</Link>
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="font-display font-extrabold text-lg tracking-wide hover:text-press-red transition-colors"
+          >
+            rose.
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex gap-6 items-center">
